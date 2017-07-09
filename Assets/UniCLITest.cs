@@ -10,12 +10,12 @@ public class UniCLITest : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
 		{
-			UCLILogger.Log("Test message. Sent through MLogger");
+			UCLILogger.Log("Test message. Sent via MLogger");
 		}
 
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			Debug.Log("Test message. Sent through Unity Debug.Log");
+			Debug.Log("Test message. Sent via Unity Debug.Log");
 		}
 	}
 }
