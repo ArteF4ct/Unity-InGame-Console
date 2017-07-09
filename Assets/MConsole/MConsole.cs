@@ -12,7 +12,7 @@ namespace MConsole
 		private static MConsole instance;
 		private MCommands mcommands = new MCommands();
 
-		public static MConsole Instance() 
+		public static MConsole Instance()
 		{
 			if (instance == null)
 			{
@@ -21,22 +21,22 @@ namespace MConsole
 			return instance;
 		}
 
-        private MConsole() { }
+		private MConsole() { }
 
-		public void Show() 
-		{ 
-			
+		public void Show()
+		{
+
 		}
 
 		public void Hide()
 		{
-			
+
 		}
 
-		public void ExecuteCommand(string cmdString) 
+		public void ExecuteCommand(string cmdString)
 		{
-			if (string.IsNullOrEmpty(cmdString)) 
-			{ 
+			if (string.IsNullOrEmpty(cmdString))
+			{
 				return;
 			}
 
@@ -57,7 +57,7 @@ namespace MConsole
 			}
 		}
 
-		public List<string> GetAllCommandUsages() 
+		public List<string> GetAllCommandUsages()
 		{
 			List<string> list = new List<string>();
 			System.Type type = typeof(MCommands);
@@ -69,6 +69,22 @@ namespace MConsole
 				}
 			}
 			return list;
+		}
+
+		public string GetUsageOf(string command)
+		{
+			System.Type type = typeof(MCommands);
+			foreach (MethodInfo m in type.GetMethods())
+			{
+				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				{
+					if (command.Equals(a.command))
+					{
+						return a.usage;
+					}
+				}
+			}
+			return null;
 		}
 	}
 }
