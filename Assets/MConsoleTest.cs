@@ -31,5 +31,10 @@ public class MConsoleTest : MonoBehaviour
 		{
 			MConsole.MConsole.Instance().ExecuteCommand("example gg 1 aaa test");
 		}
+
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			MConsole.MConsole.Instance().ExecuteCommand("help");
+		}
 	}
 }
