@@ -7,6 +7,8 @@ namespace MConsole
 {
 	public class MConsole
 	{
+		public const string VERSION = "v0.0.1";
+
 		private static MConsole instance;
 		private MCommands mcommands = new MCommands();
 
