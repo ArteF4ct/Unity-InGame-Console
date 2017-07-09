@@ -1,13 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MConsole;
 
 public class MConsoleTest : MonoBehaviour 
 {
+    public Text text;
+
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log(Random.Range(0,100) + "T");
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            MLogger.Log("TEST");
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
 		{
 			MConsole.MConsole.Instance().ExecuteCommand("close_console");
 		}
@@ -36,5 +49,16 @@ public class MConsoleTest : MonoBehaviour
 		{
 			MConsole.MConsole.Instance().ExecuteCommand("help");
 		}
-	}
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MConsole.MConsole.Instance().ExecuteCommand("unity_logs 1");
+        }
+        UpdateView();
+    }
+
+    void UpdateView()
+    {
+        text.text = MLogger.GetInstance().GetLogQueue();
+    }
 }
