@@ -21,6 +21,8 @@ namespace MConsole
 			return instance;
 		}
 
+        private MConsole() { }
+
 		public void Show() 
 		{ 
 			
@@ -53,7 +55,7 @@ namespace MConsole
 					}
 					else if (string.Equals(cmd, a.command) && (splittedCmd.Count != a.parameterLimit))
 					{
-						Debug.Log("Invalid parameters");
+						MLogger.Log("Invalid parameters");
 					}
 				}
 			}

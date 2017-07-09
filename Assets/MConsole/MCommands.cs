@@ -11,7 +11,7 @@
 			{
 				output += s + "\n";
 			}
-			UnityEngine.Debug.Log(output);
+            MLogger.Log(output);
 		}
 
 		[MCommand("close_console", 0, "close_console")]
@@ -23,7 +23,20 @@
 		[MCommand("example", 3, "example <some_arg1> <some_arg2> <some_arg3>")]
 		public void ExampleCommand(params string[] args)
 		{
-			UnityEngine.Debug.Log(string.Format("CMD: example / arg0: {0} / arg1: {1} / arg2: {2}", args[0], args[1], args[2]));
+            MLogger.Log(string.Format("CMD: example / arg0: {0} / arg1: {1} / arg2: {2}", args[0], args[1], args[2]));
 		}
-	}
+
+        [MCommand("unity_logs", 1, "unity_logs <value>")]
+        public void UnityLogs(params string[] args)
+        {
+            if (int.Parse(args[0]) == 0)
+            {
+                MLogger.GetInstance().DisableUnityLogs();
+            }
+            else if (int.Parse(args[0]) == 1)
+            {
+                MLogger.GetInstance().EnableUnityLogs();
+            }
+        }
+    }
 }
