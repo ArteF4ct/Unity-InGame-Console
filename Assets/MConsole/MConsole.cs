@@ -56,5 +56,19 @@ namespace MConsole
 				}
 			}
 		}
+
+		public List<string> GetAllCommandUsages() 
+		{
+			List<string> list = new List<string>();
+			System.Type type = typeof(MCommands);
+			foreach (MethodInfo m in type.GetMethods())
+			{
+				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				{
+					list.Add(a.usage);
+				}
+			}
+			return list;
+		}
 	}
 }
