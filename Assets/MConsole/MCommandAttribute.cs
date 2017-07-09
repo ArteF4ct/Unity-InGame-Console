@@ -6,10 +6,12 @@ namespace MConsole
 	public class MCommandAttribute : Attribute
 	{
 		public readonly string command;
+		public readonly int parameterLimit;
 
-		public MCommandAttribute(string command)
+		public MCommandAttribute(string command, int parameterLimit)
 		{
 			this.command = command;
+			this.parameterLimit = parameterLimit;
 		}
 	}
 }

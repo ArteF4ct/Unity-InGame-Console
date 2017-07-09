@@ -45,9 +45,13 @@ namespace MConsole
 			{
 				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
 				{
-					if(string.Equals(cmd, a.command))
+					if (string.Equals(cmd, a.command) && splittedCmd.Count == a.parameterLimit)
 					{
 						m.Invoke(mcommands, new object[] { splittedCmd.ToArray() });
+					}
+					else if (string.Equals(cmd, a.command) && (splittedCmd.Count != a.parameterLimit))
+					{
+						Debug.Log("Invalid parameters");
 					}
 				}
 			}
