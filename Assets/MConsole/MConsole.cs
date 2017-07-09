@@ -86,5 +86,21 @@ namespace MConsole
 			}
 			return null;
 		}
+
+		public string GetDescriptionOf(string command)
+		{
+			System.Type type = typeof(MCommands);
+			foreach (MethodInfo m in type.GetMethods())
+			{
+				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				{
+					if (command.Equals(a.command))
+					{
+						return a.description;
+					}
+				}
+			}
+			return null;
+		}
 	}
 }
