@@ -10,6 +10,9 @@ namespace MConsole
 		private Queue<string> logQueue = new Queue<string>();
 		private bool isUnityLogsEnabled = false;
 
+		public delegate void OnLogReceivedHandler(string log);
+		public event OnLogReceivedHandler OnLogReceived;
+
 		private static MLogger instance;
 		private MLogger() { }
 
@@ -52,6 +55,11 @@ namespace MConsole
 				logQueue.Dequeue();
 			}
 			logQueue.Enqueue(message);
+
+			if (OnLogReceived != null) 
+			{
+				OnLogReceived(message);
+			}
 		}
 
 		public string GetLogQueue()

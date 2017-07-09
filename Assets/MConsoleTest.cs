@@ -6,25 +6,16 @@ using MConsole;
 
 public class MConsoleTest : MonoBehaviour
 {
-	public Text text;
-	public InputField inputField;
-
-	private void Start()
+	void Update()
 	{
-		inputField.onEndEdit.AddListener(OnInputChanged);
-	}
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			MLogger.Log("Test message. Sent through MLogger");
+		}
 
-	void OnInputChanged(string inputText) 
-	{
-		MLogger.Log(">" + inputText);
-		MConsole.MConsole.Instance().ExecuteCommand(inputText);
-		inputField.Select();
-		inputField.text = "";
-		UpdateView();
-	}
-
-	void UpdateView()
-	{
-		text.text = MLogger.GetInstance().GetLogQueue();
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			Debug.Log("Test message. Sent through Unity Debug.Log");
+		}
 	}
 }
