@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MConsole;
+using UniCLI;
 
-public class MConsoleTest : MonoBehaviour
+public class UniCLITest : MonoBehaviour
 {
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
 		{
-			MLogger.Log("Test message. Sent through MLogger");
+			UCLILogger.Log("Test message. Sent through MLogger");
 		}
 
 		if (Input.GetKeyDown(KeyCode.RightArrow))

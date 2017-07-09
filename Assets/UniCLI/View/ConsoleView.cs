@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MConsole
+namespace UniCLI
 { 
-	public class MConsoleView : MonoBehaviour 
+	public class ConsoleView : MonoBehaviour 
 	{
 		public Text textContainer;
 		public InputField inputField;
@@ -13,13 +13,13 @@ namespace MConsole
 		private void Start()
 		{
 			inputField.onEndEdit.AddListener(OnInputChanged);
-			MLogger.GetInstance().OnLogReceived += UpdateTextContainer;
+			UCLILogger.GetInstance().OnLogReceived += UpdateTextContainer;
 		}
 
 		private void OnInputChanged(string inputText)
 		{
-			MLogger.Log(">" + inputText);
-			MConsole.Instance().ExecuteCommand(inputText);
+			UCLILogger.Log(">" + inputText);
+			UCLIConsole.Instance().ExecuteCommand(inputText);
 			ClearInputField();
 		}
 
@@ -31,7 +31,7 @@ namespace MConsole
 
 		private void UpdateTextContainer(string message)
 		{
-			textContainer.text = MLogger.GetInstance().GetLogQueue();
+			textContainer.text = UCLILogger.GetInstance().GetLogQueue();
 		}
 	}
 }

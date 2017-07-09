@@ -3,25 +3,25 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MConsole
+namespace UniCLI
 {
-	public class MConsole
+	public class UCLIConsole
 	{
 		public const string VERSION = "v0.0.1";
 
-		private static MConsole instance;
-		private MCommands mcommands = new MCommands();
+		private static UCLIConsole instance;
+		private Commands mcommands = new Commands();
 
-		public static MConsole Instance()
+		public static UCLIConsole Instance()
 		{
 			if (instance == null)
 			{
-				instance = new MConsole();
+				instance = new UCLIConsole();
 			}
 			return instance;
 		}
 
-		private MConsole() { }
+		private UCLIConsole() { }
 
 		public void Show()
 		{
@@ -44,10 +44,10 @@ namespace MConsole
 			string cmd = splittedCmd[0];
 			splittedCmd.RemoveAt(0);
 
-			System.Type type = typeof(MCommands);
+			System.Type type = typeof(Commands);
 			foreach (MethodInfo m in type.GetMethods())
 			{
-				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				foreach (CommandAttribute a in m.GetCustomAttributes(typeof(CommandAttribute), false))
 				{
 					if (string.Equals(cmd, a.command) && splittedCmd.Count == a.parameterLimit)
 					{
@@ -60,10 +60,10 @@ namespace MConsole
 		public List<string> GetAllCommandUsages()
 		{
 			List<string> list = new List<string>();
-			System.Type type = typeof(MCommands);
+			System.Type type = typeof(Commands);
 			foreach (MethodInfo m in type.GetMethods())
 			{
-				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				foreach (CommandAttribute a in m.GetCustomAttributes(typeof(CommandAttribute), false))
 				{
 					list.Add(a.usage);
 				}
@@ -73,10 +73,10 @@ namespace MConsole
 
 		public string GetUsageOf(string command)
 		{
-			System.Type type = typeof(MCommands);
+			System.Type type = typeof(Commands);
 			foreach (MethodInfo m in type.GetMethods())
 			{
-				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				foreach (CommandAttribute a in m.GetCustomAttributes(typeof(CommandAttribute), false))
 				{
 					if (command.Equals(a.command))
 					{
@@ -89,10 +89,10 @@ namespace MConsole
 
 		public string GetDescriptionOf(string command)
 		{
-			System.Type type = typeof(MCommands);
+			System.Type type = typeof(Commands);
 			foreach (MethodInfo m in type.GetMethods())
 			{
-				foreach (MCommandAttribute a in m.GetCustomAttributes(typeof(MCommandAttribute), false))
+				foreach (CommandAttribute a in m.GetCustomAttributes(typeof(CommandAttribute), false))
 				{
 					if (command.Equals(a.command))
 					{

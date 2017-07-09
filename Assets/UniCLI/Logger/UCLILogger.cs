@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MConsole
+namespace UniCLI
 {
-	public class MLogger
+	public class UCLILogger
 	{
 		public const int LOG_QUEUE_CAPACITY = 99;
 		private Queue<string> logQueue = new Queue<string>();
@@ -13,14 +13,14 @@ namespace MConsole
 		public delegate void OnLogReceivedHandler(string log);
 		public event OnLogReceivedHandler OnLogReceived;
 
-		private static MLogger instance;
-		private MLogger() { }
+		private static UCLILogger instance;
+		private UCLILogger() { }
 
-		public static MLogger GetInstance()
+		public static UCLILogger GetInstance()
 		{
 			if (instance == null)
 			{
-				instance = new MLogger();
+				instance = new UCLILogger();
 			}
 			return instance;
 		}
