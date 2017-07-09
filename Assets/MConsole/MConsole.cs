@@ -53,10 +53,6 @@ namespace MConsole
 					{
 						m.Invoke(mcommands, new object[] { splittedCmd.ToArray() });
 					}
-					else if (string.Equals(cmd, a.command) && (splittedCmd.Count != a.parameterLimit))
-					{
-						MLogger.Log("Invalid parameters");
-					}
 				}
 			}
 		}
