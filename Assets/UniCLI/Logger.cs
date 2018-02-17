@@ -1,29 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
-namespace UniCLI
+namespace UCLI
 {
-	public class UCLILogger
+	public class Logger
 	{
 		public const int LOG_QUEUE_CAPACITY = 99;
 		private Queue<string> logQueue = new Queue<string>();
-		private bool isUnityLogsEnabled = false;
+		public bool isUnityLogsEnabled { private set; get; }
 
 		public delegate void OnLogReceivedHandler(string log);
 		public event OnLogReceivedHandler OnLogReceived;
-
-		private static UCLILogger instance;
-		private UCLILogger() { }
-
-		public static UCLILogger GetInstance()
-		{
-			if (instance == null)
-			{
-				instance = new UCLILogger();
-			}
-			return instance;
-		}
 
 		public void EnableUnityLogs()
 		{
@@ -45,7 +32,23 @@ namespace UniCLI
 
 		private void OnUnityLogRecived(string condition, string stackTrace, UnityEngine.LogType type)
 		{
-			Log(condition);
+			string format = "{0}";
+			switch (type) 
+			{
+				case UnityEngine.LogType.Log:
+					break;
+				case UnityEngine.LogType.Exception:
+				case UnityEngine.LogType.Error:
+					format = "<color=red>{0}</color>";
+					break;
+				case UnityEngine.LogType.Assert:
+					format = "<color=blue>{0}</color>";
+					break;
+				case UnityEngine.LogType.Warning:
+					format = "<color=yellow>{0}</color>";
+					break;
+			}
+			Log(string.Format(format, condition));
 		}
 
 		private void AddToLogQueue(string message)
@@ -56,7 +59,7 @@ namespace UniCLI
 			}
 			logQueue.Enqueue(message);
 
-			if (OnLogReceived != null) 
+			if (OnLogReceived != null)
 			{
 				OnLogReceived(message);
 			}
@@ -73,9 +76,14 @@ namespace UniCLI
 			return builder.ToString();
 		}
 
-		public static void Log(string message)
+		public void Log(string message)
 		{
-			GetInstance().AddToLogQueue(message);
+			AddToLogQueue(message);
+		}
+
+		public void LogFormat(string message, params object[] args)
+		{
+			AddToLogQueue(string.Format(message, args));
 		}
 	}
 }
